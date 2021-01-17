@@ -1,38 +1,62 @@
 package com.example.android.musicformeditation;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder> {
 
-public class SongAdapter extends ArrayAdapter<Song> {
+    private final ListItemClickListener mItemOnClickListener;
 
-    public SongAdapter(Context context, ArrayList<Song> songs) {
-        super(context, 0, songs);
+    interface ListItemClickListener {
+        void onListItemClick(int clickedItemIndex);
+    }
+
+    public SongAdapter(ListItemClickListener itemOnClickListener) {
+        mItemOnClickListener = itemOnClickListener;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        // Check if an existing view is being reused, otherwise inflate the view
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_item, parent, false);
+    public SongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new SongViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_item, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull SongViewHolder holder, int position) {
+        Song currentSong = Song.getSongs().get(position);
+        holder.songNameView.setText(currentSong.getName());
+        holder.songArtistView.setText(currentSong.getArtist());
+        holder.songDurationView.setText(currentSong.getFormattedDuration());
+    }
+
+    @Override
+    public int getItemCount() {
+        return Song.getSongs().size();
+    }
+
+    class SongViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        TextView songNameView;
+        TextView songArtistView;
+        TextView songDurationView;
+
+        public SongViewHolder(@NonNull View itemView) {
+            super(itemView);
+            songNameView = itemView.findViewById(R.id.song_name);
+            songArtistView = itemView.findViewById(R.id.song_artist);
+            songDurationView = itemView.findViewById(R.id.song_duration);
+            itemView.setOnClickListener(this);
         }
 
-        Song currentSong = getItem(position);
-        ((TextView) convertView.findViewById(R.id.song_name)).setText(currentSong.getName());
-        ((TextView) convertView.findViewById(R.id.song_duration))
-                .setText(currentSong.getFormattedDuration());
-        ((TextView) convertView.findViewById(R.id.song_artist)).setText(currentSong.getArtist());
-
-        return convertView;
+        @Override
+        public void onClick(View v) {
+            mItemOnClickListener.onListItemClick(getAdapterPosition());
+        }
     }
 }
