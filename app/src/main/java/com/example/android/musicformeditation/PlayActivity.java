@@ -10,7 +10,6 @@ public class PlayActivity extends AppCompatActivity {
 
     private Song mSong;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +23,6 @@ public class PlayActivity extends AppCompatActivity {
         int duration = mSong.getDuration();
         int minutes = duration / 60;
         int seconds = duration % 60;
-        ((TextView) findViewById(R.id.song_duration)).setText(minutes + ":" + seconds);
+        ((TextView) findViewById(R.id.song_duration)).setText(mSong.getFormattedDuration());
     }
 }

@@ -1,5 +1,8 @@
 package com.example.android.musicformeditation;
 
+import android.annotation.SuppressLint;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,7 +14,7 @@ public class Song {
     public Song(String name, String artist, int duration) {
         mName = name;
         mArtist = artist;
-        mDuration = duration;
+        mDuration = duration; // seconds
     }
 
     public String getName() {
@@ -24,6 +27,13 @@ public class Song {
 
     public int getDuration() {
         return mDuration;
+    }
+
+    @SuppressLint("DefaultLocale")
+    public String getFormattedDuration() {
+        int minutes = mDuration / 60;
+        int seconds = mDuration % 60;
+        return minutes + ":" + String.format("%02d", seconds);
     }
 
     // static variables & functions

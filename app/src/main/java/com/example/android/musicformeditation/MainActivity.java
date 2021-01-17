@@ -19,6 +19,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(playIntent);
         });
 
+        // song list button functionality
+        findViewById(R.id.button_song_list).setOnClickListener(v -> {
+            Intent songListIntent = new Intent(this, SongListActivity.class);
+            startActivity(songListIntent);
+        });
+
         // exit button functionality
         findViewById(R.id.button_exit).setOnClickListener(v -> System.exit(0));
     }
