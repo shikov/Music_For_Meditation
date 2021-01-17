@@ -38,7 +38,7 @@ public class Song {
 
     // static variables & functions
     private static Random randomGenerator = new Random();
-    private static final ArrayList<Song> mSongs = new ArrayList<Song>() {
+    private static final ArrayList<Song> songs = new ArrayList<Song>() {
         {
             add(new Song("Temple of Silence", "Deuter", 561));
             add(new Song("Sound of Invisible Waters", "Deuter", 234));
@@ -52,10 +52,10 @@ public class Song {
     };
 
     public static ArrayList<Song> getSongs() {
-        return mSongs;
+        return songs;
     }
 
     public static int getRandomSongIndex() {
-        return randomGenerator.nextInt(mSongs.size());
+        return randomGenerator.nextInt(songs.size());
     }
 }

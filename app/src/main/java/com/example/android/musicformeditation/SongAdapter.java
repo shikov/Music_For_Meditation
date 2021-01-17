@@ -22,18 +22,17 @@ public class SongAdapter extends ArrayAdapter<Song> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         // Check if an existing view is being reused, otherwise inflate the view
-        View listItemView = convertView;
-        if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_item, parent, false);
         }
 
         Song currentSong = getItem(position);
-        ((TextView) listItemView.findViewById(R.id.song_name)).setText(currentSong.getName());
-        ((TextView) listItemView.findViewById(R.id.song_duration))
+        ((TextView) convertView.findViewById(R.id.song_name)).setText(currentSong.getName());
+        ((TextView) convertView.findViewById(R.id.song_duration))
                 .setText(currentSong.getFormattedDuration());
-        ((TextView) listItemView.findViewById(R.id.song_artist)).setText(currentSong.getArtist());
+        ((TextView) convertView.findViewById(R.id.song_artist)).setText(currentSong.getArtist());
 
-        return listItemView;
+        return convertView;
     }
 }
