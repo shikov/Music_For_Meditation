@@ -20,9 +20,6 @@ public class PlayActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.song_name)).setText(mSong.getName());
         ((TextView) findViewById(R.id.song_artist)).setText(mSong.getArtist());
-        int duration = mSong.getDuration();
-        int minutes = duration / 60;
-        int seconds = duration % 60;
         ((TextView) findViewById(R.id.song_duration)).setText(mSong.getFormattedDuration());
     }
 }
